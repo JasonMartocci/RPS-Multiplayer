@@ -1,0 +1,248 @@
+* {
+	margin: 0;
+}
+html, body {
+	background-color: #033EAA;
+}
+.wrapper{
+	margin: 0 auto;
+}
+.hands{
+	width: 230px;
+}
+#game{
+    position: relative;
+	margin: 10px 0 0 150px;
+}
+#mobileGameplay{
+	float: left;
+}
+.btns{
+	width:90px;
+}
+.content{
+	margin: 10px auto;
+	width:800px;
+	background-color: #FEF667;
+}
+.row1{
+	background-color: #FEF667;
+	height: 150px;
+}
+.row2{
+	background-color: #FFFCD2;
+	border-top: 5px solid #FFD200;
+	min-height: 400px;
+}
+.row3{
+	margin-top: -100px;
+	border-top: 5px solid #FFD200;
+	background-color: #FEF667;
+	height: 200px;
+}
+.rps-instructions{
+    position: relative;
+	margin: -55px auto;
+	width: 409px;
+	height: 58px;
+	z-index: 1; 
+}
+.gamewrapper{
+    position: relative;
+	background-color: #FFFFFF;
+	margin: 30px auto;
+	border-radius: 25px;
+    border: 10px solid #FFD200;
+    padding: 20px; 
+    width: 550px;
+    height: 350px;
+}
+.scoreboard{
+    position: relative;
+	margin: 0 auto;
+	height: 300px;
+	width: 300px;
+}
+.scores{
+    position: relative;
+	margin: -64px 0 0 80px;
+	z-index: 1;
+}
+#scorecard{
+	margin: -186px auto;
+	height: 300px;
+	width: 300px;
+}
+.scoreboardLabels{
+	padding: 20px;
+	font-size: 18px;
+	font-family: impact;
+}
+#scoreboardLabels{
+	min-width: 250px;
+}
+#wins{
+	margin-left: 25px;
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+#losses{
+	margin-left: 12px;
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+#ties{
+	margin-left: 32px;
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+
+/* Start of phone 640px width css styling */
+@media only screen and (max-width: 640px) {
+
+	#mobileGameplay{
+		float: left;
+		margin-top: 8px;
+	}
+	.btns{
+		padding: 2px 0 0 0;
+		width:40px;
+	}
+	.hands{
+		width: 165px;
+	}
+	.content{
+		margin: 10px auto;
+		width: 600px;
+		background-color: #FEF667;
+	}
+	.rps-instructions{
+	    position: relative;
+		margin: -55px auto;
+		width: 409px;
+		height: 58px;
+		z-index: 1; 
+	}
+	.gamewrapper{
+	    position: relative;
+		background-color: #FFFFFF;
+		margin: 30px auto;
+		border-radius: 25px;
+	    border: 10px solid #FFD200;
+	    padding: 20px; 
+	    width: 370px;
+	    height: 350px;
+	}
+
+	.scores{
+	    position: relative;
+		margin: 65px 0 0 80px;
+		z-index: 1;
+	}
+	#scorecard{
+		margin: -185px auto;
+		height: 300px;
+		width: 300px;
+	}
+	#losses{
+		margin-left: 10px;
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+	.row1{
+		background-color: #FEF667;
+		height: 60px;
+	}
+	.row3{
+		margin-top: -100px;
+		border-top: 5px solid #FFD200;
+		background-color: #FEF667;
+		height: 330px;
+	}
+}
+
+/* End of phone 480px width css styling */
+
+/* Start of phone 480px width css styling */
+@media only screen and (max-width: 480px) {
+	.btns{
+		padding: 0 0 0 0;
+		width: 80px;
+	}
+	.content{
+		margin: 10px auto;
+		width: 340px;
+		background-color: #FEF667;
+	}
+	.rps-instructions{
+	    position: relative;
+		margin: -55px auto;
+		width: 290px;
+		height: 58px;
+		z-index: 1; 
+	}
+	.gamewrapper{
+	    position: relative;
+		background-color: white;
+		margin: 30px auto;
+		border-radius: 25px;
+	    border: 10px solid #FFD200;
+	    padding: 20px; 
+	    width: 270px;
+	}
+
+	#mobileGameplay{
+	}
+	#game{
+	    position: relative;
+		margin: 10px 0 0 150px;
+	}
+	.hands{
+		width: 210px;
+		margin-left: -70px;
+	}
+	.scores{
+	    position: relative;
+		margin: 65px 0 0 80px;
+		z-index: 1;
+	}
+	#scorecard{
+		margin: -185px auto;
+		height: 290px;
+		width: 300px;
+	}
+	.row1{
+		background-color: #FEF667;
+		height: 60px;
+	}
+	#wins{
+		margin-left: 26px;
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+	#losses{
+		margin-left: 8px;
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+	#ties{
+		margin-left: 31px;
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+	.row3{
+		margin-top: -100px;
+		border-top: 5px solid #FFD200;
+		background-color: #FEF667;
+		height: 330px;
+	}
+}
+
+/* End of phone 480px width css styling */
