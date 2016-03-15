@@ -2,9 +2,12 @@
 <html>
 <head>
     <title>Rock Paper Scissors</title>
-    <script src="js/game.js"></script>
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="js/game.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 </head>
 <body></body>
 <div class="wrapper">
@@ -13,14 +16,19 @@
 		<div class="row2">
 			<div class="rps-instructions"><img class="rps-instructions" src="images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
 			<div class="gamewrapper">
-				<div id="mobileGameplay">
-					<a href="#" onclick="mobileGame('r')"><img class="btns" src="images/rock.png" alt="Click for Rock" /></a><br><br>
-					<a href="#" onclick="mobileGame('p')"><img class="btns" src="images/paper.png" alt="Click for Paper" /></a><br><br>
-					<a href="#" onclick="mobileGame('s')"><img class="btns" src="images/scissors.png" alt="Click for Scissors" /></a>
+				<div id="playerOneGameplay">
+					<a href="#" onclick="playerOneChoices('r')"><img class="btns" id="playerOne" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
+					<a href="#" onclick="playerOneChoices('p')"><img class="btns" id="playerOne" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
+					<a href="#" onclick="playerOneChoices('s')"><img class="btns" id="playerOne" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
 				</div>
 				<div id="game">
-					<div class="userGuess"><span id="userGuess"></span></div>
-					<div class="computerGuess"><span id="computerGuess"></span></div>
+					<div class="playerOneGuess"><span id="playerOneGuess"></span></div>
+					<div class="playerTwoGuess"><span id="playerTwoGuess"></span></div>
+				</div>
+				<div id="playerTwoGameplay">
+					<a href="#" onclick="playerTwoChoices('r')"><img class="btns" id="playerTwo" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
+					<a href="#" onclick="playerTwoChoices('p')"><img class="btns" id="playerTwo" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
+					<a href="#" onclick="playerTwoChoices('s')"><img class="btns" id="playerTwo" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
 				</div>
 			</div>
 		</div>
@@ -33,6 +41,30 @@
 				</div>
 				<div id="scorecard"><img src="images/scorecard.png" alt="Scorecard" /></div>
 			</div>
+		</div>
+		<div class="chatBoard">
+			<div id='messagesDiv'></div>
+		    <input type='text' id='nameInput' placeholder='Name'>
+		    <input type='text' id='messageInput' placeholder='Message'><br><br>
+		    <script>
+		      var myDataRef = new Firebase('https://ftl8xwpxyu9.firebaseio-demo.com/');
+		      $('#messageInput').keypress(function (e) {
+		        if (e.keyCode == 13) {
+		          var name = $('#nameInput').val();
+		          var text = $('#messageInput').val();
+		          myDataRef.push({name: name, text: text});
+		          $('#messageInput').val('');
+		        }
+		      });
+		      myDataRef.on('child_added', function(snapshot) {
+		        var message = snapshot.val();
+				displayChatMessage(message.name, message.text);
+		      });
+		      function displayChatMessage(name, text) {
+		        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+		        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+		      };
+		    </script>
 		</div>
 	</div>
 </div>

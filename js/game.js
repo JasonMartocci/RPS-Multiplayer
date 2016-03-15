@@ -1,107 +1,66 @@
-var computerChoices = ['r', 'p', 's'];
 var wins = 0;
 var losses = 0;
 var ties = 0;
 
-document.onkeyup = function(event) {
-    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+var playerOneGuess, playerTwoGuess;
 
-    if ((userGuess == 'r') || (userGuess == 'p') || (userGuess == 's')){
+function playerOneChoices(txt){
+    var playerOneGuess = txt;
 
-        if ((userGuess == 'r') && (computerGuess == 's')){
-            wins++;
-        }else if ((userGuess == 'r') && (computerGuess == 'p')){
-            losses++;
-        }else if ((userGuess == 's') && (computerGuess == 'r')){
-            losses++;
-        }else if ((userGuess == 's') && (computerGuess == 'p')){
-            wins++;
-        }else if ((userGuess == 'p') && (computerGuess == 'r')){
-            wins++;
-        }else if ((userGuess == 'p') && (computerGuess == 's')){
-            losses++;
-        }else if (userGuess == computerGuess){
-            ties++;
-        } 
-
-        if (userGuess == 'r'){
-            var displayRock = "<img class='hands' src='images/rock-user.png' alt='User Rock'>";
-            document.querySelector("#userGuess").innerHTML = displayRock;
-        } else if (userGuess == 'p'){
-            var displayPaper = "<img class='hands' src='images/paper-user.png' alt='User Paper'>";
-            document.querySelector("#userGuess").innerHTML = displayPaper;
-        }else if (userGuess == 's'){
-            var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='User Scissors'>";
-            document.querySelector("#userGuess").innerHTML = displayScissors;
-        }
-
-        if (computerGuess == 'r'){
-            var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Cmputer Rock'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerRock;
-        } else if (computerGuess == 'p'){
-            var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Computer Paper'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerPaper;
-        }else if (computerGuess == 's'){
-            var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Computer Scissors'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerScissors;
-        }
-
-        var displayWins = wins;
-        document.querySelector('#wins').innerHTML = displayWins;
-
-        var displayLosses = losses;
-        document.querySelector('#losses').innerHTML = displayLosses;
-
-        var displayTies = ties;
-        document.querySelector('#ties').innerHTML = displayTies;
+    if (playerOneGuess == 'r'){
+        var displayRock = "<img class='hands' src='images/rock-user.png' alt='Player One Rock'>";
+        document.querySelector("#playerOneGuess").innerHTML = displayRock;
+    } else if (playerOneGuess == 'p'){
+        var displayPaper = "<img class='hands' src='images/paper-user.png' alt='Player One Paper'>";
+        document.querySelector("#playerOneGuess").innerHTML = displayPaper;
+    }else if (playerOneGuess == 's'){
+        var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='Player One Scissors'>";
+        document.querySelector("#playerOneGuess").innerHTML = displayScissors;
     }
 }
 
-// This function is used to work on Mobile Devices.
-function mobileGame(txt) {
-    var userGuess = txt;
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    console.log(userGuess);
-    if ((userGuess == 'r') || (userGuess == 'p') || (userGuess == 's')){
+function playerTwoChoices(txt){
+    var playerTwoGuess = txt;
 
-        if ((userGuess == 'r') && (computerGuess == 's')){
+    if (playerTwoGuess == 'r'){
+        var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Player Two Rock'>";
+        document.querySelector("#playerTwoGuess").innerHTML = displayComputerRock;
+    } else if (playerTwoGuess == 'p'){
+        var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Player Two Paper'>";
+        document.querySelector("#playerTwoGuess").innerHTML = displayComputerPaper;
+    }else if (playerTwoGuess == 's'){
+        var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
+        document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
+    }   
+}
+
+// console.log(playerTwoGuess);
+
+// This function is used to figure out who wins.
+function gameLogic(txt) {
+
+    var playerOneGuess = txt;
+    var playerTwoGuess = txt;
+
+    debugger;
+
+    if ((playerOneGuess == 'r') || (playerOneGuess == 'p') || (playerOneGuess == 's')){
+
+        if ((playerOneGuess == 'r') && (playerTwoGuess == 's')){
             wins++;
-        }else if ((userGuess == 'r') && (computerGuess == 'p')){
+        }else if ((playerOneGuess == 'r') && (playerTwoGuess == 'p')){
             losses++;
-        }else if ((userGuess == 's') && (computerGuess == 'r')){
+        }else if ((playerOneGuess == 's') && (playerTwoGuess == 'r')){
             losses++;
-        }else if ((userGuess == 's') && (computerGuess == 'p')){
+        }else if ((playerOneGuess == 's') && (playerTwoGuess == 'p')){
             wins++;
-        }else if ((userGuess == 'p') && (computerGuess == 'r')){
+        }else if ((playerOneGuess == 'p') && (playerTwoGuess == 'r')){
             wins++;
-        }else if ((userGuess == 'p') && (computerGuess == 's')){
+        }else if ((playerOneGuess == 'p') && (playerTwoGuess == 's')){
             losses++;
-        }else if (userGuess == computerGuess){
+        }else if (playerOneGuess == playerTwoGuess){
             ties++;
         } 
-
-        if (userGuess == 'r'){
-            var displayRock = "<img class='hands' src='images/rock-user.png' alt='User Rock'>";
-            document.querySelector("#userGuess").innerHTML = displayRock;
-        } else if (userGuess == 'p'){
-            var displayPaper = "<img class='hands' src='images/paper-user.png' alt='User Paper'>";
-            document.querySelector("#userGuess").innerHTML = displayPaper;
-        }else if (userGuess == 's'){
-            var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='User Scissors'>";
-            document.querySelector("#userGuess").innerHTML = displayScissors;
-        }
-
-        if (computerGuess == 'r'){
-            var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Cmputer Rock'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerRock;
-        } else if (computerGuess == 'p'){
-            var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Computer Paper'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerPaper;
-        }else if (computerGuess == 's'){
-            var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Computer Scissors'>";
-            document.querySelector("#computerGuess").innerHTML = displayComputerScissors;
-        }
 
         var displayWins = wins;
         document.querySelector('#wins').innerHTML = displayWins;

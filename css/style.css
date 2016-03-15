@@ -10,12 +10,15 @@ html, body {
 .hands{
 	width: 230px;
 }
-#game{
-    position: relative;
-	margin: 10px 0 0 150px;
-}
-#mobileGameplay{
+#playerOneGameplay{
 	float: left;
+}
+#game{
+	float: left;
+	margin-left: 50px;
+}
+#playerTwoGameplay{
+	float: right;
 }
 .btns{
 	width:90px;
@@ -98,6 +101,16 @@ html, body {
 	background-color: black;
 	color: white;
 	padding: 10px;
+}
+
+#messagesDiv{
+	margin:10px;
+	text-align: left;
+}
+.chatBoard{
+	text-align: center;
+	border-top: 5px solid #FFD200;
+	background-color: #FEF667;
 }
 
 /* Start of phone 640px width css styling */
