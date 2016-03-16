@@ -4,40 +4,40 @@ var ties = 0;
 
 function playerOneChoices(txt){
     var playerOneGuess = txt;
-    var playerOneDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/1/choice/');
+    var playerOneDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/1/');
     
     if (playerOneGuess == 'r'){
         var displayRock = "<img class='hands' src='images/rock-user.png' alt='Player One Rock'>";
         document.querySelector("#playerOneGuess").innerHTML = displayRock;
-        playerOneDataRef.update({rock: "true"});
+        playerOneDataRef.update({choice: "rock"});
     } else if (playerOneGuess == 'p'){
         var displayPaper = "<img class='hands' src='images/paper-user.png' alt='Player One Paper'>";
         document.querySelector("#playerOneGuess").innerHTML = displayPaper;
-        playerOneDataRef.update({paper: "true"});
+        playerOneDataRef.update({choice: "paper"});
     }else if (playerOneGuess == 's'){
         var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='Player One Scissors'>";
         document.querySelector("#playerOneGuess").innerHTML = displayScissors;
-        playerOneDataRef.update({scissors: "true"});
+        playerOneDataRef.update({choice: "scissors"});
     }
     gameLogic(playerOneGuess);
 }
 
 function playerTwoChoices(txt){
     var playerTwoGuess = txt;
-    var playerTwoDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/2/choice/');
+    var playerTwoDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/2/');
 
     if (playerTwoGuess == 'r'){
         var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Player Two Rock'>";
         document.querySelector("#playerTwoGuess").innerHTML = displayComputerRock;
-        playerTwoDataRef.update({rock: "true"});
+        playerTwoDataRef.update({choice: "rock"});
     } else if (playerTwoGuess == 'p'){
         var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Player Two Paper'>";
         document.querySelector("#playerTwoGuess").innerHTML = displayComputerPaper;
-        playerTwoDataRef.update({paper: "true"});
+        playerTwoDataRef.update({choice: "paper"});
     }else if (playerTwoGuess == 's'){
         var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
         document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
-        playerTwoDataRef.update({scissors: "true"});
+        playerTwoDataRef.update({choice: "scissors"});
     }
     gameLogic(playerTwoGuess);   
 }
@@ -49,34 +49,30 @@ function gameLogic(txt) {
 
     var ref = new Firebase('https://vivid-torch-7282.firebaseio.com/');
     ref.once("value", function(snapshot) {
-        var playerOneRock = snapshot.child("players/1/choice/rock").val();
-        var playerOnePaper = snapshot.child("players/1/choice/paper").val();
-        var playerOneScissors = snapshot.child("players/1/choice/scissors").val();
-        var playerTwoRock = snapshot.child("players/2/choice/rock").val();
-        var playerTwoPaper = snapshot.child("players/2/choice/paper").val();
-        var playerTwoScissors = snapshot.child("players/2/choice/scissors").val();
-        console.log(playerOneRock);
+        var playerOneGuess = snapshot.child("players/1/choice").val();
+        var playerTwoGuess = snapshot.child("players/2/choice").val();
+        console.log(playerOneGuess);
         debugger;
 
 
-        if ((playerOneRock == 'true') || (playerOnePaper == 'true') || (playerOneScissors == 'true')){
+        if ((playerOneGuess == 'rock') || (playerOneGuess == 'paper') || (playerOneGuess == 'scissors')){
 
 
-            if ((playerOneRock == 'true') && (playerTwoScissors == 'true')){
+            if ((playerOneGuess == 'rock') && (playerTwoGuess == 'scissors')){
                 wins++;
                 //ref.update({/players/1/wins/: "5"});
-            }else if ((playerOneRock == 'true') && (playerTwoPaper == 'true')){
+            }else if ((playerOneGuess == 'rock') && (playerTwoGuess == 'paper')){
                 losses++;
-            }else if ((playerOneScissors == 'true') && (playerTwoRock == 'true')){
+            }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'rock')){
                 losses++;
-            }else if ((playerOneScissors == 'true') && (playerTwoPaper == 'true')){
+            }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'paper')){
                 wins++;
             alert("True");
-            }else if ((playerOnePaper == 'true') && (playerTwoRock == 'true')){
+            }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'rock')){
                 wins++;
-            }else if ((playerOnePaper == 'true') && (playerTwoScissors == 'true')){
+            }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'scissors')){
                 losses++;
-            }else if (playerOneRock == playerTwoRock){
+            }else if (playerOneGuess == playerTwoGuess){
                 ties++;
             } 
 
@@ -114,24 +110,16 @@ $( document ).ready(function() {
     myDataRef.set({
         "players": {
             "1": {
-                "choice": { 
-                    "rock": false, 
-                    "paper": false, 
-                    "scissors": false 
-                },
-                    "name": "name-input",
-                    "losses": 0,
-                    "wins": 0
+                "choice": "name-input",
+                "name": "name-input",
+                "losses": 0,
+                "wins": 0
             },
             "2": {
-                "choice": {
-                    "rock": false, 
-                    "paper": false, 
-                    "scissors": false  
-                },
-                    "name": "name-input",
-                    "losses": 0,
-                    "wins": 0
+                "choice": "name-input",
+                "name": "name-input",
+                "losses": 0,
+                "wins": 0
             },
         },
         "turn": {"1": true, "2": true },
