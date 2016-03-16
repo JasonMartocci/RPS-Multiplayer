@@ -64,6 +64,7 @@ function gameLogic(txt) {
 
             if ((playerOneRock == 'true') && (playerTwoScissors == 'true')){
                 wins++;
+                //ref.update({/players/1/wins/: "5"});
             }else if ((playerOneRock == 'true') && (playerTwoPaper == 'true')){
                 losses++;
             }else if ((playerOneScissors == 'true') && (playerTwoRock == 'true')){
