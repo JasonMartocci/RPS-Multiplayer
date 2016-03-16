@@ -12,23 +12,27 @@
 <body></body>
 <div class="wrapper">
 	<div class="content">
-		<div class="row1"></div>
+		<div class="row1">
+			<label for="name-input"></label>
+		    <input type="text" id="name-input"></input>
+		    <input id="addName" type="submit" value="submit"></input>
+		</div>
 		<div class="row2">
 			<div class="rps-instructions"><img class="rps-instructions" src="images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
 			<div class="gamewrapper">
 				<div id="playerOneGameplay">
-					<a href="#" onclick="playerOneChoices('r')"><img class="btns" id="playerOne" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
-					<a href="#" onclick="playerOneChoices('p')"><img class="btns" id="playerOne" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
-					<a href="#" onclick="playerOneChoices('s')"><img class="btns" id="playerOne" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
+					<a href="#" onclick="playerOneChoices('r')"><img class="btns" id="playerOneR" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
+					<a href="#" onclick="playerOneChoices('p')"><img class="btns" id="playerOneP" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
+					<a href="#" onclick="playerOneChoices('s')"><img class="btns" id="playerOneS" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
 				</div>
 				<div id="game">
 					<div class="playerOneGuess"><span id="playerOneGuess"></span></div>
 					<div class="playerTwoGuess"><span id="playerTwoGuess"></span></div>
 				</div>
 				<div id="playerTwoGameplay">
-					<a href="#" onclick="playerTwoChoices('r')"><img class="btns" id="playerTwo" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
-					<a href="#" onclick="playerTwoChoices('p')"><img class="btns" id="playerTwo" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
-					<a href="#" onclick="playerTwoChoices('s')"><img class="btns" id="playerTwo" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
+					<a href="#" onclick="playerTwoChoices('r')"><img class="btns" id="playerTwoR" value="r" src="images/rock.png" alt="Click for Rock" /></a><br><br>
+					<a href="#" onclick="playerTwoChoices('p')"><img class="btns" id="playerTwoP" value="p" src="images/paper.png" alt="Click for Paper" /></a><br><br>
+					<a href="#" onclick="playerTwoChoices('s')"><img class="btns" id="playerTwoS" value="s" src="images/scissors.png" alt="Click for Scissors" /></a>
 				</div>
 			</div>
 		</div>
@@ -46,25 +50,6 @@
 			<div id='messagesDiv'></div>
 		    <input type='text' id='nameInput' placeholder='Name'>
 		    <input type='text' id='messageInput' placeholder='Message'><br><br>
-		    <script>
-		      var myDataRef = new Firebase('https://ftl8xwpxyu9.firebaseio-demo.com/');
-		      $('#messageInput').keypress(function (e) {
-		        if (e.keyCode == 13) {
-		          var name = $('#nameInput').val();
-		          var text = $('#messageInput').val();
-		          myDataRef.push({name: name, text: text});
-		          $('#messageInput').val('');
-		        }
-		      });
-		      myDataRef.on('child_added', function(snapshot) {
-		        var message = snapshot.val();
-				displayChatMessage(message.name, message.text);
-		      });
-		      function displayChatMessage(name, text) {
-		        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-		        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-		      };
-		    </script>
 		</div>
 	</div>
 </div>
