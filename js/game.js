@@ -19,6 +19,7 @@ function playerOneChoices(txt){
         document.querySelector("#playerOneGuess").innerHTML = displayScissors;
         playerOneDataRef.update({scissors: "true"});
     }
+    gameLogic(playerOneGuess);
 }
 
 function playerTwoChoices(txt){
@@ -37,10 +38,55 @@ function playerTwoChoices(txt){
         var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
         document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
         playerTwoDataRef.update({scissors: "true"});
-    }   
+    }
+    gameLogic(playerTwoGuess);   
 }
 
-var playerOneGuess, playerTwoGuess;
+
+
+// This function is used to figure out who wins.
+function gameLogic(txt) {
+
+    var ref = new Firebase('https://vivid-torch-7282.firebaseio.com/');
+    ref.once("value", function(snapshot) {
+        var playerOneRock = snapshot.child("players/1/choice/rock").val();
+        var playerOnePaper = snapshot.child("players/1/choice/paper").val();
+        var playerOneScissors = snapshot.child("players/1/choice/scissors").val();
+        var playerTwoRock = snapshot.child("players/2/choice/rock").val();
+        var playerTwoPaper = snapshot.child("players/2/choice/paper").val();
+        var playerTwoScissors = snapshot.child("players/2/choice/scissors").val();
+        console.log(playerOneRock);
+        debugger;
+
+
+        if ((playerOneRock == 'true') || (playerOnePaper == 'true') || (playerOneScissors == 'true')){
+
+
+            if ((playerOneRock == 'true') && (playerTwoScissors == 'true')){
+                wins++;
+            }else if ((playerOneRock == 'true') && (playerTwoPaper == 'true')){
+                losses++;
+            }else if ((playerOneScissors == 'true') && (playerTwoRock == 'true')){
+                losses++;
+            }else if ((playerOneScissors == 'true') && (playerTwoPaper == 'true')){
+                wins++;
+            alert("True");
+            }else if ((playerOnePaper == 'true') && (playerTwoRock == 'true')){
+                wins++;
+            }else if ((playerOnePaper == 'true') && (playerTwoScissors == 'true')){
+                losses++;
+            }else if (playerOneRock == playerTwoRock){
+                ties++;
+            } 
+
+            var displayWins = wins;
+            document.querySelector('#wins').innerHTML = displayWins;
+
+            var displayLosses = losses;
+            document.querySelector('#losses').innerHTML = displayLosses;
+        }
+    });
+}
 
 $( document ).ready(function() {
     var chatDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/chat');
@@ -92,39 +138,6 @@ $( document ).ready(function() {
     });
 });
 
-// This function is used to figure out who wins.
-function gameLogic(txt) {
 
-    var playerOneGuess = txt;
-    var playerTwoGuess = txt;
 
-    debugger;
 
-    if ((playerOneGuess == 'r') || (playerOneGuess == 'p') || (playerOneGuess == 's')){
-
-        if ((playerOneGuess == 'r') && (playerTwoGuess == 's')){
-            wins++;
-        }else if ((playerOneGuess == 'r') && (playerTwoGuess == 'p')){
-            losses++;
-        }else if ((playerOneGuess == 's') && (playerTwoGuess == 'r')){
-            losses++;
-        }else if ((playerOneGuess == 's') && (playerTwoGuess == 'p')){
-            wins++;
-        }else if ((playerOneGuess == 'p') && (playerTwoGuess == 'r')){
-            wins++;
-        }else if ((playerOneGuess == 'p') && (playerTwoGuess == 's')){
-            losses++;
-        }else if (playerOneGuess == playerTwoGuess){
-            ties++;
-        } 
-
-        var displayWins = wins;
-        document.querySelector('#wins').innerHTML = displayWins;
-
-        var displayLosses = losses;
-        document.querySelector('#losses').innerHTML = displayLosses;
-
-        var displayTies = ties;
-        document.querySelector('#ties').innerHTML = displayTies;
-    }
-}
