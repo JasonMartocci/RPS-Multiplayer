@@ -20,8 +20,13 @@ html, body {
 #playerTwoGameplay{
 	float: right;
 }
-.btns{
+.playerOneBtns{
 	width:90px;
+	cursor: pointer;
+}
+.playerTwoBtns{
+	width:90px;
+	cursor: pointer;
 }
 .content{
 	margin: 10px auto;
