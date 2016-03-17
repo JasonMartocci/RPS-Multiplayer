@@ -10,15 +10,21 @@ html, body {
 .hands{
 	width: 230px;
 }
+#playerOneScorecard{
+	float: left;
+}
+#playerTwoScorecard{
+	float: right;
+}
 #playerOneGameplay{
 	float: left;
+}
+#playerTwoGameplay{
+	float: right;
 }
 #game{
 	float: left;
 	margin-left: 50px;
-}
-#playerTwoGameplay{
-	float: right;
 }
 .playerOneBtns{
 	width:90px;
@@ -65,11 +71,27 @@ html, body {
     width: 550px;
     height: 350px;
 }
-.scoreboard{
-    position: relative;
-	margin: 0 auto;
-	height: 300px;
-	width: 300px;
+.playerOneScoreboard{
+	float: left;
+	margin: 60px 0 0 100px;
+}
+
+.playerTwoScoreboard{
+	float: left;
+	margin: 46px 0 0 360px;
+}
+.scoreboardLabels{
+	padding: 10px;
+}
+#name{
+	margin-left: 0px;
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+#playerOneWins{
+}
+#playerOneLosses{
 }
 .scores{
     position: relative;
@@ -80,26 +102,6 @@ html, body {
 	margin: -186px auto;
 	height: 300px;
 	width: 300px;
-}
-.scoreboardLabels{
-	padding: 20px;
-	font-size: 18px;
-	font-family: impact;
-}
-#scoreboardLabels{
-	min-width: 250px;
-}
-#wins{
-	margin-left: 25px;
-	background-color: black;
-	color: white;
-	padding: 10px;
-}
-#losses{
-	margin-left: 12px;
-	background-color: black;
-	color: white;
-	padding: 10px;
 }
 #ties{
 	margin-left: 32px;
