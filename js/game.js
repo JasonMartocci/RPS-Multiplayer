@@ -37,7 +37,6 @@ $( document ).ready(function() {
         console.log(playerName);
 
         playersChoice();
-        // Return False to allow "enter"
         return false;
     });
 
@@ -50,6 +49,17 @@ $( document ).ready(function() {
         myDataRef.update({
           turn: Math.floor((Math.random() * 2) + 1)
         }); 
+
+        // myDataRef.on("value", function(snapshot) {
+        //     var playerTurn = snapshot.child("turn").val();
+        //     if (playerTurn == 1){
+        //         var displayStart = "Player One Turn";
+        //         document.querySelector("#playerTwoGuess").innerHTML = displayStart;
+        //     } else if (playerTurn == 2){
+        //         var displayStart = "Player Two Turn";
+        //         document.querySelector("#playerTwoGuess").innerHTML = displayStart;
+        //     };
+        // });
     };
 
     // Player one chooses rock, paper or scissors
@@ -67,7 +77,8 @@ $( document ).ready(function() {
             var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='Player One Scissors'>";
             document.querySelector("#playerOneGuess").innerHTML = displayScissors;
             playerOneDataRef.update({choice: "scissors"});
-        }
+        };
+
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 2){
@@ -92,7 +103,8 @@ $( document ).ready(function() {
             var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
             playerTwoDataRef.update({choice: "scissors"});
-        }
+        };
+
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 1){
