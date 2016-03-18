@@ -30,6 +30,9 @@ html, body {
 	width:90px;
 	cursor: pointer;
 }
+.playerInstructions{
+	text-align: center;
+}
 .playerTwoBtns{
 	width:90px;
 	cursor: pointer;

@@ -32,12 +32,24 @@ $( document ).ready(function() {
     $("#submitName").on("click", function() {
 
         // Get the input values
-        var playerName = $('#playerName').val().trim(); 
-        playerOneDataRef.update({name: playerName});
-        console.log(playerName);
+        var playerOneEnter = $('#playerOneEnter').val().trim(); 
+        playerOneDataRef.update({name: playerOneEnter});
 
-        playersChoice();
-        return false;
+        var displayNewForm = "<input type='text' class='form-control' id='playerTwoEnter' placeholder='Player Two Name'> <button id='submitPlayerTwoName' type='submit' class='btn btn-primary'>Start</button>";
+        document.querySelector(".form-group").innerHTML = displayNewForm;
+
+        $("#submitPlayerTwoName").on("click", function() {
+            debugger;
+            // Get the input values
+            var playerTwoEnter = $('#playerTwoEnter').val().trim(); 
+            playerTwoDataRef.update({name: playerTwoEnter});
+
+            var displayFinalMessage = "Play";
+            document.querySelector(".form-group").innerHTML = displayFinalMessage;
+            debugger;
+            playersChoice();
+            return false;
+        });
     });
 
     function playersChoice(){
@@ -82,8 +94,11 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 2){
+                var displayPlayerTurn = "Player Two Turn";
+                document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
                 playersChoice();
                 gameLogic();
+                debugger;
             };
         }); 
     });
@@ -108,8 +123,11 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 1){
+                var displayPlayerTurn = "Player One Turn";
+                document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
                 playersChoice();
                 gameLogic();
+                debugger;
             };
         }); 
     });
