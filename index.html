@@ -13,9 +13,13 @@
 <div class="wrapper">
 	<div class="content">
 		<div class="row1">
-			<label for="name-input"></label>
-		    <input type="text" id="name-input"></input>
-		    <input id="addName" type="submit" value="submit"></input>
+			<div class="playerNameForm">
+	            <form>
+	                <div class="form-group">
+	                    <input type="text" class="form-control" id="playerName" placeholder="Your Name"> <button id="submitName" type="submit" class="btn btn-primary">Start</button>
+	                </div>   
+	            </form>
+            </div>
 		</div>
 		<div class="row2">
 			<div class="rps-instructions"><img class="rps-instructions" src="images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
