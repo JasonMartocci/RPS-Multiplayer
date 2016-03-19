@@ -12,13 +12,13 @@ $( document ).ready(function() {
         "players": {
             "1": {
                 "choice": "",
-                "name": "name-input",
+                "name": "",
                 "losses": 0,
                 "wins": 0
             },
             "2": {
                 "choice": "",
-                "name": "name-input",
+                "name": "",
                 "losses": 0,
                 "wins": 0
             },
@@ -29,28 +29,81 @@ $( document ).ready(function() {
 
 
     // Players enter names to start the game
-    $("#submitName").on("click", function() {
+    $('#submitName').on("click", function(e){
+        user = $('#enterName').val();
+        console.log(user);
+        alert(user);
+        e.preventDefault();
 
-        // Get the input values
-        var playerOneEnter = $('#playerOneEnter').val().trim(); 
-        playerOneDataRef.update({name: playerOneEnter});
-
-        var displayNewForm = "<input type='text' class='form-control' id='playerTwoEnter' placeholder='Player Two Name'> <button id='submitPlayerTwoName' type='submit' class='btn btn-primary'>Start</button>";
-        document.querySelector(".form-group").innerHTML = displayNewForm;
-
-        $("#submitPlayerTwoName").on("click", function() {
+        myDataRef.once("value", function(snapshot) {
+            userExists = snapshot.child('name').exists()
+            console.log(userExists);
             debugger;
-            // Get the input values
-            var playerTwoEnter = $('#playerTwoEnter').val().trim(); 
-            playerTwoDataRef.update({name: playerTwoEnter});
+            if (!userExists) {
+                queryRef = myDataRef.child('1');
+                queryRef.child('players').set({
+                    'name': user
+                })
 
-            var displayFinalMessage = "Play";
-            document.querySelector(".form-group").innerHTML = displayFinalMessage;
-            debugger;
-            playersChoice();
-            return false;
-        });
+                playerOne = true;
+                } else {
+                    queryRef = myDataRef.child('2');
+                    queryRef.set({
+                        'name': user
+                    })
+
+                playerOne = false;
+            }
+        })
     });
+
+
+
+
+
+
+
+
+    // $("#submitName").on("click", function() {
+    //     myDataRef.on("value", function(snapshot) {
+    //         var playerOneNameSelected = snapshot.child("players/1/name").val();
+    //         var playerTwoNameSelected = snapshot.child("players/2/name").val();
+    //         var nameEnter = $('#enterName').val().trim();
+                
+    //         if (playerOneNameSelected == ''){
+    //             console.log(playerOneNameSelected);
+    //             playerOneDataRef.update({name: nameEnter});
+    //         }else if (playerOneNameSelected != '') {
+    //             console.log(playerTwoNameSelected);
+    //             playerTwoDataRef.update({name: nameEnter});
+    //         };
+
+    //         // Displays player one choice of rock, paper or scissors
+    //         debugger;
+    //     });
+    //         return false;
+
+
+    //     // Get the input values
+    //     // var playerOneEnter = $('#playerOneEnter').val().trim(); 
+    //     // playerOneDataRef.update({name: playerOneEnter});
+
+    //     // var displayNewForm = "<input type='text' class='form-control' id='playerTwoEnter' placeholder='Player Two Name'> <button id='submitPlayerTwoName' type='submit' class='btn btn-primary'>Start</button>";
+    //     // document.querySelector(".form-group").innerHTML = displayNewForm;
+
+    //     $("#submitPlayerTwoName").on("click", function() {
+    //         debugger;
+    //         // Get the input values
+    //         var playerTwoEnter = $('#playerTwoEnter').val().trim(); 
+    //         playerTwoDataRef.update({name: playerTwoEnter});
+
+    //         var displayFinalMessage = "Play";
+    //         document.querySelector(".form-group").innerHTML = displayFinalMessage;
+    //         debugger;
+    //         playersChoice();
+    //         return false;
+    //     });
+    // });
 
     function playersChoice(){
         var displayStart = "";
@@ -267,4 +320,3 @@ $( document ).ready(function() {
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
     };  
 });
-
