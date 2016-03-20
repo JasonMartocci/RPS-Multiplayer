@@ -1,7 +1,9 @@
 
 $( document ).ready(function() {
-    var wins = 0;
-    var losses = 0;
+    var playerOneWinsCnt = 0;
+    var playerOneLossesCnt = 0;
+    var playerTwoWinsCnt = 0;
+    var playerTwoLossesCnt = 0;
     var myDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/');
     var chatDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/chat');
     var turnDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/turn');
@@ -36,23 +38,20 @@ $( document ).ready(function() {
         e.preventDefault();
 
         myDataRef.once("value", function(snapshot) {
-            userExists = snapshot.child('name').exists()
+            userExists = snapshot.child('name').val()
             console.log(userExists);
             debugger;
             if (!userExists) {
-                queryRef = myDataRef.child('1');
-                queryRef.child('players').set({
-                    'name': user
+                    queryRef = myDataRef.child('players');
+                    queryRef.child('1').set({
+                        'name': user
                 })
-
-                playerOne = true;
+                    debugger;
                 } else {
                     queryRef = myDataRef.child('2');
-                    queryRef.set({
+                    queryRef.child('2').set({
                         'name': user
-                    })
-
-                playerOne = false;
+                })
             }
         })
     });
@@ -144,16 +143,16 @@ $( document ).ready(function() {
             playerOneDataRef.update({choice: "scissors"});
         };
 
-        myDataRef.once("value", function(snapshot) {
-            var playerTurn = snapshot.child("turn").val();
-            if (playerTurn == 2){
-                var displayPlayerTurn = "Player Two Turn";
-                document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
-                playersChoice();
-                gameLogic();
-                debugger;
-            };
-        }); 
+        // myDataRef.once("value", function(snapshot) {
+        //     var playerTurn = snapshot.child("turn").val();
+        //     if (playerTurn == 2){
+        //         var displayPlayerTurn = "Player Two Turn";
+        //         document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
+        //         playersChoice();
+        //         gameLogic();
+        //         debugger;
+        //     };
+        // }); 
     });
 
     // Player two chooses rock, paper or scissors
@@ -172,17 +171,18 @@ $( document ).ready(function() {
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
             playerTwoDataRef.update({choice: "scissors"});
         };
+        gameLogic();
 
-        myDataRef.once("value", function(snapshot) {
-            var playerTurn = snapshot.child("turn").val();
-            if (playerTurn == 1){
-                var displayPlayerTurn = "Player One Turn";
-                document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
-                playersChoice();
-                gameLogic();
-                debugger;
-            };
-        }); 
+        // myDataRef.once("value", function(snapshot) {
+        //     var playerTurn = snapshot.child("turn").val();
+        //     if (playerTurn == 1){
+        //         var displayPlayerTurn = "Player One Turn";
+        //         document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
+        //         playersChoice();
+        //         gameLogic();
+        //         debugger;
+        //     };
+        // }); 
     });
 
     myDataRef.on("value", function(snapshot) {
@@ -244,58 +244,60 @@ $( document ).ready(function() {
 
             if ((playerOneGuess == 'rock') && (playerTwoGuess == 'scissors')){
                 // myDataRef.child("players").child("1").update({"wins": wins + 1})`
-                wins++;
-                losses++;
+                playerOneWinsCnt++;
+                playerTwoLossesCnt++;
                 myDataRef.child("players/1/").update({
-                  wins: wins
+                  wins: playerOneWinsCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  losses: losses
-                });  
+                  losses: playerTwoLossesCnt
+                }); 
+                // var displayComputerScissors = "PLAYER ONE WINS";
+                // document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors; 
             }else if ((playerOneGuess == 'rock') && (playerTwoGuess == 'paper')){
-                wins++;
-                losses++;
+                playerTwoWinsCnt++;
+                playerOneLossesCnt++;
                 myDataRef.child("players/1/").update({
-                  losses: losses
+                  losses: playerOneLossesCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  wins: wins
+                  wins: playerTwoWinsCnt
                 });
             }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'rock')){
-                wins++;
-                losses++;
+                playerTwoWinsCnt++;
+                playerOneLossesCnt++;
                 myDataRef.child("players/1/").update({
-                  losses: losses
+                  losses: playerOneLossesCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  wins: wins
+                  wins: playerTwoWinsCnt
                 });
             }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'paper')){
-                wins++;
-                losses++;
+                playerOneWinsCnt++;
+                playerTwoLossesCnt++;
                 myDataRef.child("players/1/").update({
-                  wins: wins
+                  wins: playerOneWinsCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  losses: losses
+                  losses: playerTwoLossesCnt
                 });
             }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'rock')){
-                wins++;
-                losses++;
+                playerOneWinsCnt++;
+                playerTwoLossesCnt++;
                 myDataRef.child("players/1/").update({
-                  wins: wins
+                  wins: playerOneWinsCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  losses: losses
+                  losses: playerTwoLossesCnt
                 });
             }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'scissors')){
-                wins++;
-                losses++;
+                playerOneLossesCnt++;
+                playerTwoWinsCnt++;
                 myDataRef.child("players/1/").update({
-                  losses: losses
+                  losses: playerOneLossesCnt
                 }); 
                 myDataRef.child("players/2/").update({
-                  wins: wins
+                  wins: playerTwoWinsCnt
                 });
             };
         });
