@@ -31,24 +31,29 @@ $( document ).ready(function() {
 
 
     // Players enter names to start the game
+
+    // var playerOneGuess = snapshot.child("players/1/choice").val();
+    // var playerTwoGuess = snapshot.child("players/2/choice").val();
+
     $('#submitName').on("click", function(e){
         user = $('#enterName').val();
         console.log(user);
-        alert(user);
         e.preventDefault();
 
         myDataRef.once("value", function(snapshot) {
-            userExists = snapshot.child('name').val()
-            console.log(userExists);
+            userOneExists = snapshot.child('players/1/name').val()
+            userTwoExists = snapshot.child('players/2/name').val()
+            console.log(userOneExists);
             debugger;
-            if (!userExists) {
+            if (!userOneExists) {
                     queryRef = myDataRef.child('players');
                     queryRef.child('1').set({
                         'name': user
-                })
-                    debugger;
+                    })
+                } else if (userTwoExists != "") {
+                    alert("Room Is Full!");
                 } else {
-                    queryRef = myDataRef.child('2');
+                    queryRef = myDataRef.child('players');
                     queryRef.child('2').set({
                         'name': user
                 })
@@ -56,53 +61,6 @@ $( document ).ready(function() {
         })
     });
 
-
-
-
-
-
-
-
-    // $("#submitName").on("click", function() {
-    //     myDataRef.on("value", function(snapshot) {
-    //         var playerOneNameSelected = snapshot.child("players/1/name").val();
-    //         var playerTwoNameSelected = snapshot.child("players/2/name").val();
-    //         var nameEnter = $('#enterName').val().trim();
-                
-    //         if (playerOneNameSelected == ''){
-    //             console.log(playerOneNameSelected);
-    //             playerOneDataRef.update({name: nameEnter});
-    //         }else if (playerOneNameSelected != '') {
-    //             console.log(playerTwoNameSelected);
-    //             playerTwoDataRef.update({name: nameEnter});
-    //         };
-
-    //         // Displays player one choice of rock, paper or scissors
-    //         debugger;
-    //     });
-    //         return false;
-
-
-    //     // Get the input values
-    //     // var playerOneEnter = $('#playerOneEnter').val().trim(); 
-    //     // playerOneDataRef.update({name: playerOneEnter});
-
-    //     // var displayNewForm = "<input type='text' class='form-control' id='playerTwoEnter' placeholder='Player Two Name'> <button id='submitPlayerTwoName' type='submit' class='btn btn-primary'>Start</button>";
-    //     // document.querySelector(".form-group").innerHTML = displayNewForm;
-
-    //     $("#submitPlayerTwoName").on("click", function() {
-    //         debugger;
-    //         // Get the input values
-    //         var playerTwoEnter = $('#playerTwoEnter').val().trim(); 
-    //         playerTwoDataRef.update({name: playerTwoEnter});
-
-    //         var displayFinalMessage = "Play";
-    //         document.querySelector(".form-group").innerHTML = displayFinalMessage;
-    //         debugger;
-    //         playersChoice();
-    //         return false;
-    //     });
-    // });
 
     function playersChoice(){
         var displayStart = "";
