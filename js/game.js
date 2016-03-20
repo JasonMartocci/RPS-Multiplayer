@@ -159,7 +159,7 @@ $( document ).ready(function() {
 
 
             // Displays player one choice of rock, paper or scissors
-            playerOneDataRef.on("value", function(snapshot) {                
+            playerOneDataRef.once("value", function(snapshot) {                
                 if (snapshot.val().choice == 'rock'){
                     var displayRock = "<img class='hands' src='images/rock-user.png' alt='Player One Rock'>";
                     document.querySelector("#playerOneGuess").innerHTML = displayRock;
@@ -177,7 +177,7 @@ $( document ).ready(function() {
             });
 
             // Displays player two choice of rock, paper or scissors
-            playerTwoDataRef.on("value", function(snapshot) {
+            playerTwoDataRef.once("value", function(snapshot) {
                 var displayStart = "";
                 document.querySelector("#playerTwoGuess").innerHTML = displayStart;
 
