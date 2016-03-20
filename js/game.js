@@ -59,29 +59,15 @@ $( document ).ready(function() {
                 })
             }
         })
+
+        var hideForm = "";
+        document.querySelector(".playerNameForm").innerHTML = hideForm;
     });
 
-
     function playersChoice(){
-        var displayStart = "";
-        
-        document.querySelector("#playerOneGuess").innerHTML = displayStart;
-        document.querySelector("#playerTwoGuess").innerHTML = displayStart;
-
         myDataRef.update({
           turn: Math.floor((Math.random() * 2) + 1)
         }); 
-
-        // myDataRef.on("value", function(snapshot) {
-        //     var playerTurn = snapshot.child("turn").val();
-        //     if (playerTurn == 1){
-        //         var displayStart = "Player One Turn";
-        //         document.querySelector("#playerTwoGuess").innerHTML = displayStart;
-        //     } else if (playerTurn == 2){
-        //         var displayStart = "Player Two Turn";
-        //         document.querySelector("#playerTwoGuess").innerHTML = displayStart;
-        //     };
-        // });
     };
 
     // Player one chooses rock, paper or scissors
@@ -101,16 +87,15 @@ $( document ).ready(function() {
             playerOneDataRef.update({choice: "scissors"});
         };
 
-        // myDataRef.once("value", function(snapshot) {
-        //     var playerTurn = snapshot.child("turn").val();
-        //     if (playerTurn == 2){
-        //         var displayPlayerTurn = "Player Two Turn";
-        //         document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
-        //         playersChoice();
-        //         gameLogic();
-        //         debugger;
-        //     };
-        // }); 
+        myDataRef.once("value", function(snapshot) {
+            var playerTurn = snapshot.child("turn").val();
+            if (playerTurn == 2){
+                $('#playerOneGameplay').css({'background-color': 'white'});
+                $('#playerTwoGameplay').css({'background-color': 'blue'});
+                gameLogic();
+                debugger;
+            };
+        }); 
     });
 
     // Player two chooses rock, paper or scissors
@@ -129,25 +114,23 @@ $( document ).ready(function() {
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
             playerTwoDataRef.update({choice: "scissors"});
         };
-        gameLogic();
 
-        // myDataRef.once("value", function(snapshot) {
-        //     var playerTurn = snapshot.child("turn").val();
-        //     if (playerTurn == 1){
-        //         var displayPlayerTurn = "Player One Turn";
-        //         document.querySelector(".playerInstructions").innerHTML = displayPlayerTurn;
-        //         playersChoice();
-        //         gameLogic();
-        //         debugger;
-        //     };
-        // }); 
+        myDataRef.once("value", function(snapshot) {
+            var playerTurn = snapshot.child("turn").val();
+            if (playerTurn == 1){
+                $('#playerOneGameplay').css({'background-color': 'blue'});
+                $('#playerTwoGameplay').css({'background-color': 'white'});
+                gameLogic();
+                debugger;
+            };
+        }); 
     });
 
     myDataRef.on("value", function(snapshot) {
         var playerOneGuess = snapshot.child("players/1/choice").val();
         var playerTwoGuess = snapshot.child("players/2/choice").val();
 
-        // if ((playerOneGuess == 'rock') && (playerTwoGuess == 'rock')) {
+        if ((playerOneGuess != '') && (playerTwoGuess != '')) {
 
             // Displays player one choice of rock, paper or scissors
             playerOneDataRef.on("value", function(snapshot) {                
@@ -187,7 +170,7 @@ $( document ).ready(function() {
                 $("#playerTwoWins").html(snapshot.val().wins);
                 $("#playerTwoLosses").html(snapshot.val().losses);
             });
-        // }
+        }
     });
 
     // This function is used to figure out who wins.
@@ -201,7 +184,6 @@ $( document ).ready(function() {
             var playerTwoLosses = snapshot.child("players/2/losses").val();
 
             if ((playerOneGuess == 'rock') && (playerTwoGuess == 'scissors')){
-                // myDataRef.child("players").child("1").update({"wins": wins + 1})`
                 playerOneWinsCnt++;
                 playerTwoLossesCnt++;
                 myDataRef.child("players/1/").update({
@@ -210,8 +192,8 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   losses: playerTwoLossesCnt
                 }); 
-                // var displayComputerScissors = "PLAYER ONE WINS";
-                // document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors; 
+                playersChoice();
+
             }else if ((playerOneGuess == 'rock') && (playerTwoGuess == 'paper')){
                 playerTwoWinsCnt++;
                 playerOneLossesCnt++;
@@ -221,6 +203,8 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   wins: playerTwoWinsCnt
                 });
+                playersChoice();
+
             }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'rock')){
                 playerTwoWinsCnt++;
                 playerOneLossesCnt++;
@@ -230,6 +214,8 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   wins: playerTwoWinsCnt
                 });
+                playersChoice();
+
             }else if ((playerOneGuess == 'scissors') && (playerTwoGuess == 'paper')){
                 playerOneWinsCnt++;
                 playerTwoLossesCnt++;
@@ -239,6 +225,8 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   losses: playerTwoLossesCnt
                 });
+                playersChoice();
+
             }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'rock')){
                 playerOneWinsCnt++;
                 playerTwoLossesCnt++;
@@ -248,6 +236,8 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   losses: playerTwoLossesCnt
                 });
+                playersChoice();
+
             }else if ((playerOneGuess == 'paper') && (playerTwoGuess == 'scissors')){
                 playerOneLossesCnt++;
                 playerTwoWinsCnt++;
@@ -257,11 +247,14 @@ $( document ).ready(function() {
                 myDataRef.child("players/2/").update({
                   wins: playerTwoWinsCnt
                 });
+                playersChoice();
             };
         });
     };
 
     // Chat feature
+    var chatName = $('#enterName').val();
+
     $('#messageInput').keypress(function (e) {
         if (e.keyCode == 13) {
             var name = $('#nameInput').val();
