@@ -5,7 +5,6 @@ $( document ).ready(function() {
     var playerTwoLossesCnt = 0;
     var myDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/');
     var chatDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/chat');
-    var turnDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/turn');
     var playerOneDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/1/');
     var playerTwoDataRef = new Firebase('https://vivid-torch-7282.firebaseio.com/players/2/');
 
@@ -27,7 +26,6 @@ $( document ).ready(function() {
         "turn": "1",
         "chat": {"New": ""}
     });
-
 
     // Players enter names to start the game
 
