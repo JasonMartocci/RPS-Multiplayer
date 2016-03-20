@@ -43,8 +43,6 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             userOneExists = snapshot.child('players/1/name').val()
             userTwoExists = snapshot.child('players/2/name').val()
-            console.log(userOneExists);
-            debugger;
             if (!userOneExists) {
                     queryRef = myDataRef.child('players');
                     queryRef.child('1').set({
@@ -90,8 +88,8 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 2){
-                $('#playerOneGameplay').css({'background-color': 'white'});
-                $('#playerTwoGameplay').css({'background-color': 'blue'});
+                // $('#playerOneGameplay').css({'background-color': 'white'});
+                // $('#playerTwoGameplay').css({'background-color': '#FFFCD2'});
                 gameLogic();
                 debugger;
             };
@@ -118,8 +116,8 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 1){
-                $('#playerOneGameplay').css({'background-color': 'blue'});
-                $('#playerTwoGameplay').css({'background-color': 'white'});
+                // $('#playerOneGameplay').css({'background-color': '#FFFCD2'});
+                // $('#playerTwoGameplay').css({'background-color': 'white'});
                 gameLogic();
                 debugger;
             };
@@ -131,6 +129,20 @@ $( document ).ready(function() {
         var playerTwoGuess = snapshot.child("players/2/choice").val();
 
         if ((playerOneGuess != '') && (playerTwoGuess != '')) {
+            
+            setTimeout(function(){ 
+                var clearHandsOne = "";
+                var clearHandsTwo = "";
+                myDataRef.child("players/1/").update({
+                  choice: ""
+                }); 
+                myDataRef.child("players/2/").update({
+                  choice: ""
+                }); 
+                document.querySelector("#playerOneGuess").innerHTML = clearHandsOne;
+                document.querySelector("#playerTwoGuess").innerHTML = clearHandsTwo;
+             }, 5000);
+
 
             // Displays player one choice of rock, paper or scissors
             playerOneDataRef.on("value", function(snapshot) {                
