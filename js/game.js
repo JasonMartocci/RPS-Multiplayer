@@ -1,4 +1,3 @@
-
 $( document ).ready(function() {
     var playerOneWinsCnt = 0;
     var playerOneLossesCnt = 0;
@@ -43,23 +42,25 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             userOneExists = snapshot.child('players/1/name').val()
             userTwoExists = snapshot.child('players/2/name').val()
-            if (!userOneExists) {
+            console.log(userOneExists);
+            debugger;
+            if (userOneExists == "") {
                     queryRef = myDataRef.child('players');
                     queryRef.child('1').set({
                         'name': user
                     })
-                } else if (userTwoExists != "") {
-                    alert("Room Is Full!");
-                } else {
+                } else if (userTwoExists == "") {
                     queryRef = myDataRef.child('players');
                     queryRef.child('2').set({
                         'name': user
                 })
+                } else if (userTwoExists != "") {
+                    alert("Room Is Full!");
             }
         })
 
-        var hideForm = "";
-        document.querySelector(".playerNameForm").innerHTML = hideForm;
+        // var hideForm = "";
+        // document.querySelector(".playerNameForm").innerHTML = hideForm;
     });
 
     function playersChoice(){
@@ -87,9 +88,12 @@ $( document ).ready(function() {
 
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
-            if (playerTurn == 2){
-                // $('#playerOneGameplay').css({'background-color': 'white'});
-                // $('#playerTwoGameplay').css({'background-color': '#FFFCD2'});
+            if (playerTurn == 1){
+                $('#playerOneGameplay').css({'background-color': '#FFFCD2'});
+                $('#playerTwoGameplay').css({'background-color': 'white'});
+            }else if(playerTurn == 2){
+                $('#playerOneGameplay').css({'background-color': 'white'});
+                $('#playerTwoGameplay').css({'background-color': '#FFFCD2'});
                 gameLogic();
                 debugger;
             };
@@ -116,9 +120,12 @@ $( document ).ready(function() {
         myDataRef.once("value", function(snapshot) {
             var playerTurn = snapshot.child("turn").val();
             if (playerTurn == 1){
-                // $('#playerOneGameplay').css({'background-color': '#FFFCD2'});
-                // $('#playerTwoGameplay').css({'background-color': 'white'});
+                $('#playerOneGameplay').css({'background-color': '#FFFCD2'});
+                $('#playerTwoGameplay').css({'background-color': 'white'});
                 gameLogic();
+            }else if(playerTurn == 2){
+                $('#playerOneGameplay').css({'background-color': 'white'});
+                $('#playerTwoGameplay').css({'background-color': '#FFFCD2'});
                 debugger;
             };
         }); 
@@ -130,7 +137,16 @@ $( document ).ready(function() {
 
         if ((playerOneGuess != '') && (playerTwoGuess != '')) {
             
-            setTimeout(function(){ 
+            setTimeout(function(){
+                var playerTurn = snapshot.child("turn").val();
+                if (playerTurn == 1){
+                    $('#playerOneGameplay').css({'background-color': '#FFFCD2'});
+                    $('#playerTwoGameplay').css({'background-color': 'white'});
+                }else if(playerTurn == 2){
+                    $('#playerOneGameplay').css({'background-color': 'white'});
+                    $('#playerTwoGameplay').css({'background-color': '#FFFCD2'}); 
+                };
+                debugger;
                 var clearHandsOne = "";
                 var clearHandsTwo = "";
                 myDataRef.child("players/1/").update({
@@ -141,7 +157,7 @@ $( document ).ready(function() {
                 }); 
                 document.querySelector("#playerOneGuess").innerHTML = clearHandsOne;
                 document.querySelector("#playerTwoGuess").innerHTML = clearHandsTwo;
-             }, 5000);
+             }, 3000);
 
 
             // Displays player one choice of rock, paper or scissors
