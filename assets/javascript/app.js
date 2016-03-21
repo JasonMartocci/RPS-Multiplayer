@@ -50,8 +50,32 @@ $( document ).ready(function() {
                     alert("Room Is Full!");
             }
         })
+        chat(user);
         document.querySelector(".playerNameForm").innerHTML = hideForm;
     });
+
+    // Chat feature
+    function chat(val){
+        var chatName = $('#enterName').val();
+
+        $('#messageInput').keypress(function (e) {
+            if (e.keyCode == 13) {
+                var name = chatName;
+                var text = $('#messageInput').val();
+                chatDataRef.push({name: name, text: text});
+                $('#messageInput').val('');
+            };
+        });
+            chatDataRef.on('child_added', function(snapshot) {
+                var message = snapshot.val();
+                displayChatMessage(message.name, message.text);
+        });
+
+        function displayChatMessage(name, text) {
+            $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+            $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        }; 
+    };
 
     // Player one chooses rock, paper or scissors
     $(".playerOneBtns").on("click", function() {
@@ -264,26 +288,5 @@ $( document ).ready(function() {
                 });
             };
         });
-    };
-
-    // Chat feature
-    var chatName = $('#enterName').val();
-
-    $('#messageInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-            var name = $('#nameInput').val();
-            var text = $('#messageInput').val();
-            chatDataRef.push({name: name, text: text});
-            $('#messageInput').val('');
-        };
-    });
-        chatDataRef.on('child_added', function(snapshot) {
-            var message = snapshot.val();
-            displayChatMessage(message.name, message.text);
-    });
-
-    function displayChatMessage(name, text) {
-        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-    };  
+    }; 
 });

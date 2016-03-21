@@ -21,10 +21,12 @@
 	                </div>   
 	            </form>
             </div>
-            <div class="playerInstructions"></div>
 		</div>
 		<div class="row2">
-			<div class="rps-instructions"><img class="rps-instructions" src="assets/images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
+			<div class="rps-instructions">
+				<div class="playerInstructionsImg"><img class="rps-instructions" src="assets/images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
+            	<div class="playerInstructions">Welcome to Rock, Paper, Scissors</div>
+			</div>
 			<div class="gamewrapper">
 				<div id="playerOneGameplay">
 					<img class="playerOneBtns" id="playerOne" value="r" src="assets/images/rock.png" alt="Click for Rock" /><br>
@@ -56,8 +58,7 @@
 		</div>
 		<div class="chatBoard">
 			<div id='messagesDiv'>Chat</div>
-		    <input type='text' id='nameInput' placeholder='Name'>
-		    <input type='text' id='messageInput' placeholder='Message'><br><br>
+		    <div id="chatMessage"><input type='text' id='messageInput' placeholder='Message'></div>
 		</div>
 	</div>
 </div>
