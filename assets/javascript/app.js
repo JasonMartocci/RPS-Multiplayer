@@ -182,12 +182,6 @@ $( document ).ready(function() {
                 $("#playerTwoWins").html(snapshot.val().wins);
                 $("#playerTwoLosses").html(snapshot.val().losses);
             });
-
-            playerTwoDataRef.once("value", function(snapshot) {
-                $("#playerTwoName").html(snapshot.val().name);
-                $("#playerTwoWins").html(snapshot.val().wins);
-                $("#playerTwoLosses").html(snapshot.val().losses);
-            });
         }
     });
 
