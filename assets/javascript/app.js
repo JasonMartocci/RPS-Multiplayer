@@ -165,7 +165,7 @@ $( document ).ready(function() {
                 }); 
                 document.querySelector("#playerOneGuess").innerHTML = clearHandsOne;
                 document.querySelector("#playerTwoGuess").innerHTML = clearHandsTwo;
-             }, 2500);
+             }, 1500);
 
 
             // Displays player one choice of rock, paper or scissors
