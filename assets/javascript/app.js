@@ -24,20 +24,18 @@ $( document ).ready(function() {
             },
         },
         "turn": "1",
-        "chat": {"New": ""}
+        "chat": ""
     });
 
     // Players enter names to start the game
     $('#submitName').on("click", function(e){
+        var hideForm = "";
         user = $('#enterName').val();
-        console.log(user);
         e.preventDefault();
 
         myDataRef.once("value", function(snapshot) {
             userOneExists = snapshot.child('players/1/name').val()
             userTwoExists = snapshot.child('players/2/name').val()
-            console.log(userOneExists);
-            debugger;
             if (userOneExists == "") {
                     queryRef = myDataRef.child('players');
                     queryRef.child('1').set({
@@ -52,7 +50,6 @@ $( document ).ready(function() {
                     alert("Room Is Full!");
             }
         })
-        var hideForm = "";
         document.querySelector(".playerNameForm").innerHTML = hideForm;
     });
 
@@ -60,15 +57,15 @@ $( document ).ready(function() {
     $(".playerOneBtns").on("click", function() {
         var playerOneGuess = $(this).attr("value");
         if (playerOneGuess == 'r'){
-            var displayRock = "<img class='hands' src='images/rock-user.png' alt='Player One Rock'>";
+            var displayRock = "<img class='hands' src='assets/images/rock-user.png' alt='Player One Rock'>";
             document.querySelector("#playerOneGuess").innerHTML = displayRock;
             playerOneDataRef.update({choice: "rock"});
         } else if (playerOneGuess == 'p'){
-            var displayPaper = "<img class='hands' src='images/paper-user.png' alt='Player One Paper'>";
+            var displayPaper = "<img class='hands' src='assets/images/paper-user.png' alt='Player One Paper'>";
             document.querySelector("#playerOneGuess").innerHTML = displayPaper;
             playerOneDataRef.update({choice: "paper"});
         }else if (playerOneGuess == 's'){
-            var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='Player One Scissors'>";
+            var displayScissors = "<img class='hands' src='assets/images/scissors-user.png' alt='Player One Scissors'>";
             document.querySelector("#playerOneGuess").innerHTML = displayScissors;
             playerOneDataRef.update({choice: "scissors"});
         };
@@ -80,15 +77,15 @@ $( document ).ready(function() {
     $(".playerTwoBtns").on("click", function() {
         var playerTwoGuess = $(this).attr("value");
         if (playerTwoGuess == 'r'){
-            var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Player Two Rock'>";
+            var displayComputerRock = "<img class='hands' src='assets/images/rock-computer.png' alt='Player Two Rock'>";
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerRock;
             playerTwoDataRef.update({choice: "rock"});
         } else if (playerTwoGuess == 'p'){
-            var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Player Two Paper'>";
+            var displayComputerPaper = "<img class='hands' src='assets/images/paper-computer.png' alt='Player Two Paper'>";
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerPaper;
             playerTwoDataRef.update({choice: "paper"});
         }else if (playerTwoGuess == 's'){
-            var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
+            var displayComputerScissors = "<img class='hands' src='assets/images/scissors-computer.png' alt='Player Two Scissors'>";
             document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
             playerTwoDataRef.update({choice: "scissors"});
         };
@@ -96,8 +93,17 @@ $( document ).ready(function() {
         gameLogic(); 
     });
 
+    // DataRef used to setup board of gameplay and to display choice made by player
     myDataRef.on("value", function(snapshot) {
         var playerTurn = snapshot.child("turn").val();
+        var playerPosition = snapshot.child("players/").val();
+        var playerOneGuess = snapshot.child("players/1/choice").val();
+        var playerTwoGuess = snapshot.child("players/2/choice").val();
+
+        if (playerPosition == 1){
+            $('#playerOneGameplay').css({'background-color': 'red'});
+        };
+
         if (playerTurn == 1){
             $('#playerOneGameplay').css({'background-color': '#CCCCCC'});
             $('#playerTwoGameplay').css({'background-color': 'white'});
@@ -106,12 +112,15 @@ $( document ).ready(function() {
             $('#playerTwoGameplay').css({'background-color': '#CCCCCC'});
             debugger;
         };
-        var playerOneGuess = snapshot.child("players/1/choice").val();
-        var playerTwoGuess = snapshot.child("players/2/choice").val();
 
         if ((playerOneGuess != '') && (playerTwoGuess != '')) {
-            
+            myDataRef.update({
+              turn: "1"
+            });
+
             setTimeout(function(){
+                var clearHandsOne = "";
+                var clearHandsTwo = "";
                 var playerTurn = snapshot.child("turn").val();
                 if (playerTurn == 1){
                     $('#playerOneGameplay').css({'background-color': '#CCCCCC'});
@@ -121,32 +130,30 @@ $( document ).ready(function() {
                     $('#playerTwoGameplay').css({'background-color': '#CCCCCC'}); 
                 };
                 debugger;
-                var clearHandsOne = "";
-                var clearHandsTwo = "";
-                myDataRef.update({
-                  turn: "1"
-                });
                 myDataRef.child("players/1/").update({
                   choice: ""
                 }); 
                 myDataRef.child("players/2/").update({
                   choice: ""
+                });
+                myDataRef.update({
+                  turn: "1"
                 }); 
                 document.querySelector("#playerOneGuess").innerHTML = clearHandsOne;
                 document.querySelector("#playerTwoGuess").innerHTML = clearHandsTwo;
-             }, 3000);
+             }, 2500);
 
 
             // Displays player one choice of rock, paper or scissors
             playerOneDataRef.once("value", function(snapshot) {                
                 if (snapshot.val().choice == 'rock'){
-                    var displayRock = "<img class='hands' src='images/rock-user.png' alt='Player One Rock'>";
+                    var displayRock = "<img class='hands' src='assets/images/rock-user.png' alt='Player One Rock'>";
                     document.querySelector("#playerOneGuess").innerHTML = displayRock;
                 } else if (snapshot.val().choice == 'paper'){
-                    var displayPaper = "<img class='hands' src='images/paper-user.png' alt='Player One Paper'>";
+                    var displayPaper = "<img class='hands' src='assets/images/paper-user.png' alt='Player One Paper'>";
                     document.querySelector("#playerOneGuess").innerHTML = displayPaper;
                 }else if (snapshot.val().choice == 'scissors'){
-                    var displayScissors = "<img class='hands' src='images/scissors-user.png' alt='Player One Scissors'>";
+                    var displayScissors = "<img class='hands' src='assets/images/scissors-user.png' alt='Player One Scissors'>";
                     document.querySelector("#playerOneGuess").innerHTML = displayScissors;
                 }
 
@@ -161,16 +168,22 @@ $( document ).ready(function() {
                 document.querySelector("#playerTwoGuess").innerHTML = displayStart;
 
                 if (snapshot.val().choice == 'rock'){
-                    var displayComputerRock = "<img class='hands' src='images/rock-computer.png' alt='Player Two Rock'>";
+                    var displayComputerRock = "<img class='hands' src='assets/images/rock-computer.png' alt='Player Two Rock'>";
                     document.querySelector("#playerTwoGuess").innerHTML = displayComputerRock;
                 } else if (snapshot.val().choice == 'paper'){
-                    var displayComputerPaper = "<img class='hands' src='images/paper-computer.png' alt='Player Two Paper'>";
+                    var displayComputerPaper = "<img class='hands' src='assets/images/paper-computer.png' alt='Player Two Paper'>";
                     document.querySelector("#playerTwoGuess").innerHTML = displayComputerPaper;
                 }else if (snapshot.val().choice == 'scissors'){
-                    var displayComputerScissors = "<img class='hands' src='images/scissors-computer.png' alt='Player Two Scissors'>";
+                    var displayComputerScissors = "<img class='hands' src='assets/images/scissors-computer.png' alt='Player Two Scissors'>";
                     document.querySelector("#playerTwoGuess").innerHTML = displayComputerScissors;
                 }
 
+                $("#playerTwoName").html(snapshot.val().name);
+                $("#playerTwoWins").html(snapshot.val().wins);
+                $("#playerTwoLosses").html(snapshot.val().losses);
+            });
+
+            playerTwoDataRef.once("value", function(snapshot) {
                 $("#playerTwoName").html(snapshot.val().name);
                 $("#playerTwoWins").html(snapshot.val().wins);
                 $("#playerTwoLosses").html(snapshot.val().losses);
@@ -182,7 +195,7 @@ $( document ).ready(function() {
     // Counter for whos turn it is.
     function playersChoice(){
         myDataRef.update({
-          turn: Math.floor(1 + 1)
+          turn: 2
         }); 
     };
 

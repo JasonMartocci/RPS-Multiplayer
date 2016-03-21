@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>Rock Paper Scissors</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/idle.js"></script>
+    <script src="assets/javascript/app.js"></script>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 </head>
 <body></body>
@@ -25,32 +24,32 @@
             <div class="playerInstructions"></div>
 		</div>
 		<div class="row2">
-			<div class="rps-instructions"><img class="rps-instructions" src="images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
+			<div class="rps-instructions"><img class="rps-instructions" src="assets/images/press-r-p-s.png" alt="Press R, P, S to start playing." /></div>
 			<div class="gamewrapper">
 				<div id="playerOneGameplay">
-					<img class="playerOneBtns" id="playerOne" value="r" src="images/rock.png" alt="Click for Rock" /><br>
-					<img class="playerOneBtns" id="playerOne" value="p" src="images/paper.png" alt="Click for Paper" /><br>
-					<img class="playerOneBtns" id="playerOne" value="s" src="images/scissors.png" alt="Click for Scissors" />
+					<img class="playerOneBtns" id="playerOne" value="r" src="assets/images/rock.png" alt="Click for Rock" /><br>
+					<img class="playerOneBtns" id="playerOne" value="p" src="assets/images/paper.png" alt="Click for Paper" /><br>
+					<img class="playerOneBtns" id="playerOne" value="s" src="assets/images/scissors.png" alt="Click for Scissors" />
 				</div>
 				<div id="game">
 					<div class="playerOneGuess"><span id="playerOneGuess"></span></div>
 					<div class="playerTwoGuess"><span id="playerTwoGuess"></span></div>
 				</div>
 				<div id="playerTwoGameplay">
-					<img class="playerTwoBtns" id="playerTwo" value="r" src="images/rock.png" alt="Click for Rock" /><br>
-					<img class="playerTwoBtns" id="playerTwo" value="p" src="images/paper.png" alt="Click for Paper" /><br>
-					<img class="playerTwoBtns" id="playerTwo" value="s" src="images/scissors.png" alt="Click for Scissors" />
+					<img class="playerTwoBtns" id="playerTwo" value="r" src="assets/images/rock.png" alt="Click for Rock" /><br>
+					<img class="playerTwoBtns" id="playerTwo" value="p" src="assets/images/paper.png" alt="Click for Paper" /><br>
+					<img class="playerTwoBtns" id="playerTwo" value="s" src="assets/images/scissors.png" alt="Click for Scissors" />
 				</div>
 			</div>
 		</div>
 		<div class="row3">
 			<div class="playerOneScoreboard">
-				<div class="scoreboardLabels"><span id="playerOneName"></span></div>
+				<div class="scoreboardLabels"><span id="playerOneName">Player One</span></div>
 				<div class="scoreboardLabels">Wins: <span id="playerOneWins"></span></div>
 				<div class="scoreboardLabels">Losses: <span id="playerOneLosses"></span></div>
 			</div>
 			<div class="playerTwoScoreboard">
-				<div class="scoreboardLabels"><span id="playerTwoName"></span></div>
+				<div class="scoreboardLabels"><span id="playerTwoName">Player Two</span></div>
 				<div class="scoreboardLabels">Wins: <span id="playerTwoWins"></span></div>
 				<div class="scoreboardLabels">Losses: <span id="playerTwoLosses"></span></div>
 			</div>
