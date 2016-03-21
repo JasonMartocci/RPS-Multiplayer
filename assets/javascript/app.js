@@ -120,20 +120,20 @@ $( document ).ready(function() {
     // DataRef used to setup board of gameplay and to display choice made by player
     myDataRef.on("value", function(snapshot) {
         var playerTurn = snapshot.child("turn").val();
-        var playerPosition = snapshot.child("players/").val();
+        //var playerPosition = snapshot.child("players/").val();
         var playerOneGuess = snapshot.child("players/1/choice").val();
         var playerTwoGuess = snapshot.child("players/2/choice").val();
 
-        if (playerPosition == 1){
-            $('#playerOneGameplay').css({'background-color': 'red'});
-        };
+        // if (playerPosition == 1){
+        //     $('#playerOneGameplay').css({'background-color': 'red'});
+        // };
 
         if (playerTurn == 1){
-            $('#playerOneGameplay').css({'background-color': '#CCCCCC'});
-            $('#playerTwoGameplay').css({'background-color': 'white'});
+            $('#playerOneGameplay').css({'visibility': 'visible'});
+            $('#playerTwoGameplay').css({'visibility': 'hidden'});
         }else if(playerTurn == 2){
-            $('#playerOneGameplay').css({'background-color': 'white'});
-            $('#playerTwoGameplay').css({'background-color': '#CCCCCC'});
+            $('#playerOneGameplay').css({'visibility': 'hidden'});
+            $('#playerTwoGameplay').css({'visibility': 'visible'});
             debugger;
         };
 
@@ -147,11 +147,11 @@ $( document ).ready(function() {
                 var clearHandsTwo = "";
                 var playerTurn = snapshot.child("turn").val();
                 if (playerTurn == 1){
-                    $('#playerOneGameplay').css({'background-color': '#CCCCCC'});
-                    $('#playerTwoGameplay').css({'background-color': 'white'});
+                    $('#playerOneGameplay').css({'visibility': 'visible'});
+                    $('#playerTwoGameplay').css({'visibility': 'hidden'});
                 }else if(playerTurn == 2){
-                    $('#playerOneGameplay').css({'background-color': 'white'});
-                    $('#playerTwoGameplay').css({'background-color': '#CCCCCC'}); 
+                    $('#playerOneGameplay').css({'visibility': 'hidden'});
+                    $('#playerTwoGameplay').css({'visibility': 'visible'}); 
                 };
                 debugger;
                 myDataRef.child("players/1/").update({
